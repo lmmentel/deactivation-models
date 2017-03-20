@@ -75,6 +75,10 @@ def main():
         colorVal = scalarMap.to_rgba(i)
         plt.plot(x, c[i, :], lw=2.0, color=colorVal)
 
+    plt.title('Time evolution of coke concentration in the reactor')
+    plt.xlabel('Axial reactor coordiante')
+    plt.ylabel('Coke concentration [mol/m$^3$]')
+
     plt.show()
 
 
