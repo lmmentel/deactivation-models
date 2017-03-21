@@ -1,4 +1,6 @@
 import argparse
+import os
+import sys
 from gooey import Gooey
 import numpy as np
 from scipy.integrate import odeint
@@ -8,6 +10,9 @@ import matplotlib.cm as cmx
 import seaborn as sns
 
 from coke import coke_model
+
+nonbuffered_stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
+sys.stdout = nonbuffered_stdout
 
 
 @Gooey
@@ -50,6 +55,8 @@ def main():
 
     # sovle the ODEs
     abc = odeint(coke_model, abc0, t, args=(cargs.k1, cargs.k2, cargs.k3, N0, dtau))
+
+    sns.set(style='whitegrid')
 
     plt.figure(1, figsize=(8, 5))
     a = abc[:, ::3]
