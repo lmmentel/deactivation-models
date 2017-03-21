@@ -22,9 +22,9 @@ def main():
                         help='rate constant B --> C')
     parser.add_argument('A0', type=float, default=1.0,
                         help='initial concentration of A')
-    parser.add_argument('B0', type=float, default=0.0,
+    parser.add_argument('B0', type=float, default=0,
                         help='initial concentration of B')
-    parser.add_argument('C0', type=float, default=0.0,
+    parser.add_argument('C0', type=float, default=0,
                         help='initial concentration of C')
     parser.add_argument('Tfinal', type=float, default=5.0,
                         help='final value for time')
@@ -51,7 +51,7 @@ def main():
     # sovle the ODEs
     abc = odeint(coke_model, abc0, t, args=(cargs.k1, cargs.k2, cargs.k3, N0, dtau))
 
-    plt.figure(1, figsize=(16, 10))
+    plt.figure(1, figsize=(8, 5))
     a = abc[:, ::3]
     b = abc[:, 1::3]
 
@@ -70,13 +70,13 @@ def main():
     cNorm = colors.Normalize(vmin=0, vmax=cargs.Tgrid)
     scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=cm)
 
-    plt.figure(2)
+    plt.figure(2, figsize=(8, 5))
     for i in range(cargs.Tgrid):
         colorVal = scalarMap.to_rgba(i)
-        plt.plot(x, c[i, :], lw=2.0, color=colorVal)
+        plt.plot(x, c[i, :], color=colorVal)
 
     plt.title('Time evolution of coke concentration in the reactor')
-    plt.xlabel('Axial reactor coordiante')
+    plt.xlabel('Axial reactor coordinate')
     plt.ylabel('Coke concentration [mol/m$^3$]')
 
     plt.show()
